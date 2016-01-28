@@ -4,25 +4,28 @@ require_relative File.join( '../app/person')
 require 'test/unit'
 
 class PersonTest < Test::Unit::TestCase
+  FIRST_NAME, LAST_NAME, AGE = 'Weston', 'Cooper', 29
+
+  def setup
+    @person = Person.new(FIRST_NAME, LAST_NAME, AGE)
+  end
+
   def test_first_name
-    person = Person.new('Weston', 'Cooper', 25)
-    assert_equal 'Weston', person.first_name
+    assert_equal FIRST_NAME, @person.first_name
   end
 
   def test_last_name
-    person = Person.new('Weston','Cooper', 29)
-    assert_equal 'Cooper', person.last_name
+    assert_equal LAST_NAME, @person.last_name
   end
 
   def test_full_name
-    person = Person.new('Weston', 'Cooper', 29)
-    assert_equal 'Weston Cooper', person.full_name
+    assert_equal FIRST_NAME + ' ' + LAST_NAME, @person.full_name
   end
 
   def test_age
-    person = Person.new('Weston', 'Cooper', 29)
-    assert_equal 29, person.age
-    assert_raise(ArgumentError) { Person.new('Weston', 'Cooper', -4) }
-    assert_raise(ArgumentError) { Person.new('Weston', 'Cooper', 'four') }
+    assert_equal AGE, @person.age
+    assert_raise(ArgumentError) { Person.new(FIRST_NAME, LAST_NAME, -4) }
+    assert_raise(ArgumentError) { Person.new(FIRST_NAME, LAST_NAME, 0) }
+    assert_raise(ArgumentError) { Person.new(FIRST_NAME, LAST_NAME, 'four') }
   end
 end
