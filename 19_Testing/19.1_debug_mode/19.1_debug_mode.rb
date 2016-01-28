@@ -1,6 +1,8 @@
 #! /usr/bin/env ruby
 #divide.rb
 
+#This example shows how to add an argument to display extra notes when debugging
+
 $DEBUG = (ARGV[0] == "--debug")
 
 numerator = rand(100)
