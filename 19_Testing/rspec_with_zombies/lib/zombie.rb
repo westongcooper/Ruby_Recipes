@@ -1,17 +1,20 @@
 class Zombie < ActiveRecord::Base
-  attr_accessor :brains, :alive, :rotting, :height, :hungry, :weapons, :veggie
   validates :name, presence: true
+
+  DEFAULTS = {name: "",
+              brains: 0,
+              alive: false,
+              rotting: true,
+              height: 5,
+              hungry: true,
+              weapons: ["hands", "teeth"],
+              veggie: false}
+
+  DEFAULTS.each { |k,v| attr_accessor k }
 
   def initialize(args={})
     super
-    @name = args[:name]
-    @brains = args[:brains] || 0
-    @alive = !!args[:alive]
-    @rotting = args[:rotting] || true
-    @height = args[:height] || 5
-    @hungry = args[:hungry] || true
-    @weapons = args[:weapons] || ["hands", "teeth"]
-    @veggie = args[:veggie] || false
+    DEFAULTS.merge(args).each { |k,v| instance_variable_set("@#{k}",v) }
   end
 
   def hungry?
