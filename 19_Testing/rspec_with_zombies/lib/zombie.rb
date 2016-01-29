@@ -1,5 +1,5 @@
 class Zombie < ActiveRecord::Base
-  attr_accessor :brains, :alive, :rotting, :height, :hungry, :weapons
+  attr_accessor :brains, :alive, :rotting, :height, :hungry, :weapons, :veggie
   validates :name, presence: true
 
   def initialize(args={})
@@ -11,9 +11,15 @@ class Zombie < ActiveRecord::Base
     @height = args[:height] || 5
     @hungry = args[:hungry] || true
     @weapons = args[:weapons] || ["hands", "teeth"]
+    @veggie = args[:veggie] || false
   end
 
   def hungry?
     @hungry
   end
+
+  def vegan?
+    @veggie
+  end
+
 end
