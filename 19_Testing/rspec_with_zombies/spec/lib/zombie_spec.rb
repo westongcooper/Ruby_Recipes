@@ -59,11 +59,12 @@ describe Zombie do
     )
   end
 
-  it 'satisfies these misc mathers' do
+  it '#### satisfies these misc matchers' do
     zombie = Zombie.new(name: 'Ash')
-    zombie.should respond_to(:hungry?)
+    zombie.should respond_to(:hungry?)  #duck typing
     zombie.height.should be_within(4.9).of(5)  #is the range of height
-    zombie.should exist
+    zombie.should satisfy { |zombie| zombie.hungry? }  #enter a block
+    zombie.weapons.should be_an_instance_of(Array) #duck typing
   end
 
 
