@@ -3,6 +3,7 @@
 require 'active_record'
 require 'sqlite3'
 require 'pry-byebug'
+require 'rspec/its'
 
 Dir.glob(File.join(".", "lib", "**", "*.rb")).each do |file|
     require file

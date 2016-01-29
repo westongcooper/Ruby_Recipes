@@ -49,7 +49,7 @@ describe Zombie do
   end
 
   it "starts with two weapons" do
-    subject.weapons.count.should == 2 # refactored below if using active record
+    subject.weapons.size.should == 2 # refactored below if using active record
     # subject.should have(2).weapons
   end
 
@@ -67,7 +67,7 @@ describe Zombie do
   it '#### satisfies these misc matchers' do
     subject.height.should be_within(4.9).of(5)  #is the range of height
     subject.should satisfy { |zombie| subject.hungry? }  #enter a block
-    subject.weapons.should be_an_instance_of(Array) #duck typing
+    subject.height.should be_an_instance_of(Fixnum) #duck typing
   end
 
   it '#### implicit receiver' do
@@ -81,24 +81,10 @@ describe Zombie do
   it { should respond_to(:rotting)}
   it { should respond_to(:weapons)}
   it { should be_hungry }  # something tricky here  used be_hungry in replace of should_be hungry? for some reason i guess for readability
-
+  #### use rspec-its gem
+  # binding.pry
+  its(:height) { should == 5 }
+  its(:weapons) { should == Weapon.find(1,2).to_a }
 ###############################
-end
-
-describe Zombie do
-  context 'when hungry' do
-    it 'craves brains' do
-      should be_hungry
-    end
-    context 'with a veggie preference' do
-      it 'still craves brains' do
-        should be_hungry
-      end
-      subject { Zombie.new(veggie: true)}
-      it 'prefers vegan brains' do
-        should be_vegan
-      end
-    end
-  end
 end
 
